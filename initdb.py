@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 
 db_params = {
    'host': '127.0.0.1',
-   "port" : '5432',
-   'database': 'postgres',
+   'port' : '5432',
+   'database': 'stock_data',
    'user': 'postgres',
    'password': 'password'
 }
@@ -58,6 +58,7 @@ for file in file_list:
 # adding the data to the database
 for filename, filepath in file_loc.items():
    df = pd.read_csv(filepath)
+   df.columns = map(str.lower, df.columns)
    df.to_sql(filename, engine, if_exists='replace', index=False)
 
 # closing the connection
